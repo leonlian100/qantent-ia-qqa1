@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <div style={{ padding: 40 }}>
-      <h1>Patent AI Clean</h1>
+      <h1>Patent AI Clean Agent</h1>
       <textarea onChange={(e) => setText(e.target.value)} />
       <br /><br />
       <button onClick={generate}>Generate</button>
