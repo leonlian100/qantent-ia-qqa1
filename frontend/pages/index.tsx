@@ -5,7 +5,7 @@ export default function Home() {
   const [data, setData] = useState(null);
 
   const generate = async () => {
-    const res = await fetch('https://YOUR-RAILWAY-URL/generate', {
+    const res = await fetch('https://qantent-ia-qqa1-production.up.railway.app/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text })
