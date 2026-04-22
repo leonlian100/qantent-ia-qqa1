@@ -36,8 +36,11 @@ export default function Home() {
           <pre>{JSON.stringify(data.keywords, null, 2)}</pre>
 
           <h2>WordCloud</h2>
-          <img src="https://qantent-ia-qqa1-production.up.railway.app/wordcloud" width="400" />
-        
+          <img
+  src={`${process.env.NEXT_PUBLIC_API_URL}/wordcloud?t=${Date.now()}`}
+  width="400"
+/>
+          
         <h2>TF-IDF Chart</h2>
         <img
   src={`${process.env.NEXT_PUBLIC_API_URL}/tfidf?t=${Date.now()}`}
