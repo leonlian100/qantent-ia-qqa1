@@ -1,5 +1,13 @@
 import requests
 
+def translate_query(q):
+    mapping = {
+        "削鉛筆機": "pencil sharpener",
+        "機器人": "robot",
+        "電動車": "electric vehicle"
+    }
+    return mapping.get(q, q)
+
 def get_patents(query):
     url = "https://api.lens.org/patent/search"
 
