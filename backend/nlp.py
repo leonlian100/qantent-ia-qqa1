@@ -5,7 +5,8 @@ import os
 
 STOPWORDS_EXTRA = [
     "method", "device", "system", "apparatus",
-    "said", "comprising", "includes"
+    "said", "comprising", "includes",
+    "invention", "present", "relates"
 ]
 
 def analyze_texts(texts):
