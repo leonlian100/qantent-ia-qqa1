@@ -1,6 +1,8 @@
 def get_patents(query):
     return [
-        {"title": "test device", "abstract": "cutting system with motor"},
-        {"title": "test machine", "abstract": "automatic system with sensor"},
-        {"title": "test tool", "abstract": "blade rotation control"}
+        {"title": f"{query} device", "abstract": f"{query} cutting system using motor"},
+        {"title": f"{query} machine", "abstract": f"automatic {query} with sensor"},
+        {"title": f"{query} tool", "abstract": f"{query} blade rotation control"},
+        {"title": f"{query} system", "abstract": f"{query} automatic feeding mechanism"},
+        {"title": f"{query} innovation", "abstract": f"{query} smart control device"}
     ]
