@@ -33,3 +33,7 @@ def generate(data: dict):
 @app.get("/wordcloud")
 def wordcloud():
     return FileResponse("output/wordcloud.png")
+
+@app.get("/tfidf")
+def tfidf_chart():
+    return FileResponse("output/tfidf.png")
