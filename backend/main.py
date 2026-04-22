@@ -1,24 +1,35 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from patent import get_patents
+from nlp import analyze_texts
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['*'],
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=['*'],
-    allow_headers=['*'],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-@app.get('/')
-def root():
-    return {'message': 'API is working'}
-
-@app.post('/generate')
+@app.post("/generate")
 def generate(data: dict):
-    text = data.get('text', '')
+    query = data.get("text", "")
+
+    patents = get_patents(query)
+
+    texts = [p["abstract"] for p in patents]
+
+    keywords = analyze_texts(texts)
+
     return {
-        'patent': f'Generated patent for: {text}',
-        'analysis': {'keywords': ['AI','Sensor','Automation']}
+        "query": query,
+        "patents": patents,
+        "keywords": keywords
     }
+
+@app.get("/wordcloud")
+def wordcloud():
+    return FileResponse("output/wordcloud.png")
