@@ -4,12 +4,12 @@ def get_patents(query):
     url = "https://api.lens.org/patent/search"
 
     payload = {
-        "query": {
-            "match": {
-                "title": query
-            }
-        },
-        "size": 50   # 👉 先抓50筆（穩定）
+    "query": {
+        "query_string": {
+            "query": query
+        }
+    },
+    "size": 50
     }
 
     headers = {
