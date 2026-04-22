@@ -37,6 +37,11 @@ export default function Home() {
 
           <h2>WordCloud</h2>
           <img src="https://qantent-ia-qqa1-production.up.railway.app/wordcloud" width="400" />
+        
+        <h2>TF-IDF Chart</h2>
+<img src={`${proces s.env.NEXT_PUBLIC_API_URL}/tfidf?t=${Date.now()}`}
+  width="400"
+/>
         </div>
       )}
     </div>
