@@ -38,4 +38,7 @@ def analyze_texts(texts):
     plt.savefig("output/tfidf.png")
     plt.close()
 
-    return keyword_scores
+    return {
+    "keywords": keyword_scores,
+    "trend": keyword_trend(keywords)
+    }
