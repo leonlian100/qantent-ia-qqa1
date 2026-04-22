@@ -18,7 +18,7 @@ app.add_middleware(
 def generate(data: dict):
     query = data.get("text", "")
 
-    patents = get_patents(query)
+    patents = get_patents(query)[:50]
 
     texts = [p["abstract"] for p in patents]
 
