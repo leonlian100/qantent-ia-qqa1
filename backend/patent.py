@@ -1,8 +1,47 @@
+import requests
+
 def get_patents(query):
+    url = "https://api.lens.org/patent/search"
+
+    payload = {
+        "query": {
+            "match": {
+                "title": query
+            }
+        },
+        "size": 50   # 👉 先抓50筆（穩定）
+    }
+
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    try:
+        res = requests.post(url, json=payload, headers=headers)
+        data = res.json()
+
+        patents = []
+
+        for item in data.get("data", []):
+            title = item.get("title", "")
+            abstract = item.get("abstract", "")
+
+            if abstract:
+                patents.append({
+                    "title": title,
+                    "abstract": abstract
+                })
+
+        return patents if patents else fallback(query)
+
+    except Exception as e:
+        print("API error:", e)
+        return fallback(query)
+
+
+def fallback(query):
+    # 👉 如果 API 壞掉用這個（保險）
     return [
-        {"title": f"{query} device", "abstract": f"{query} cutting system using motor"},
-        {"title": f"{query} machine", "abstract": f"automatic {query} with sensor"},
-        {"title": f"{query} tool", "abstract": f"{query} blade rotation control"},
-        {"title": f"{query} system", "abstract": f"{query} automatic feeding mechanism"},
-        {"title": f"{query} innovation", "abstract": f"{query} smart control device"}
+        {"title": f"{query} device", "abstract": f"{query} cutting system"},
+        {"title": f"{query} machine", "abstract": f"automatic {query} system"}
     ]
