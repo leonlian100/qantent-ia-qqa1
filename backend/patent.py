@@ -9,9 +9,12 @@ def translate_query(q):
     return mapping.get(q, q)
 
 def get_patents(query):
+
+query = translate_query(query)
+    
     url = "https://api.lens.org/patent/search"
 
-    payload = {
+    payload = {def get_patents(query):
     "query": {
         "query_string": {
             "query": query
