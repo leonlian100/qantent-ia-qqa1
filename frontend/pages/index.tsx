@@ -46,6 +46,9 @@ export default function Home() {
   src={`${process.env.NEXT_PUBLIC_API_URL}/tfidf?t=${Date.now()}`}
   width="400"
 />
+     <h2>Trend</h2>
+<pre>{JSON.stringify(data.analysis?.trend, null, 2)}</pre>
+        
         </div>
       )}
     </div>
