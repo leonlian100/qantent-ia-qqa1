@@ -2,7 +2,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import os
+from collections import Counter
 
+def keyword_trend(keywords):
+    return Counter(keywords)
+    
 STOPWORDS_EXTRA = [
     "method", "device", "system", "apparatus",
     "said", "comprising", "includes"
