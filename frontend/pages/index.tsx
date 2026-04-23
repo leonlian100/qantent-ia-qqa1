@@ -53,6 +53,8 @@ export default function Home() {
             src={`${process.env.NEXT_PUBLIC_API_URL}/tfidf?t=${Date.now()}`}
             width="400"
           />
+          <h2>Patent Count</h2>
+          <pre>{data.patents?.length}</pre>
         </div>
       )}
     </div>
