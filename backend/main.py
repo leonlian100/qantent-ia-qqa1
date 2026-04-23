@@ -23,10 +23,8 @@ def generate(data: dict):
         return {"error": "No input text provided"}
 
     try:
-        # 👉 抓專利（最多50筆）
         patents = get_patents(query)[:50]
 
-        # 👉 防止空資料 crash
         texts = [p.get("abstract", "") for p in patents if p.get("abstract")]
 
         if not texts:
@@ -38,10 +36,9 @@ def generate(data: dict):
                 "message": "No valid patent data"
             }
 
-        # 👉 NLP 分析（你原本穩定版本）
         keyword_scores = analyze_texts(texts)
 
-        # 👉 Trend（安全加，不動 nlp）
+        # 👉 Trend（安全）
         trend = dict(Counter(keyword_scores.keys()))
 
         return {
@@ -52,9 +49,7 @@ def generate(data: dict):
         }
 
     except Exception as e:
-        return {
-            "error": str(e)
-        }
+        return {"error": str(e)}
 
 
 @app.get("/wordcloud")
