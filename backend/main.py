@@ -31,6 +31,7 @@ def generate(data: dict):
             return {
                 "query": query,
                 "patents": [],
+                "count": len(patents),   # 🔥 加這行
                 "keywords": {},
                 "trend": {},
                 "message": "No valid patent data"
