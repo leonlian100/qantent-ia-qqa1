@@ -6,7 +6,6 @@ from collections import Counter
 
 def keyword_trend(keywords):
     return dict(Counter(keywords))
-
     
 STOPWORDS_EXTRA = [
     "method", "device", "system", "apparatus",
