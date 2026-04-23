@@ -44,7 +44,6 @@ def generate(data: dict):
             "query": query,
             "patents": patents,
             "patents": [],
-            "count": len(patents),   # 🔥 加這行
             "keywords": keyword_scores,
             "trend": trend
         }
