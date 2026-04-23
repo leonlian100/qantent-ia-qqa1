@@ -30,8 +30,6 @@ def generate(data: dict):
         if not texts:
             return {
                 "query": query,
-                "patents": [],
-                "count": len(patents),   # 🔥 加這行
                 "keywords": {},
                 "trend": {},
                 "message": "No valid patent data"
@@ -45,10 +43,12 @@ def generate(data: dict):
         return {
             "query": query,
             "patents": patents,
+            "patents": [],
+            "count": len(patents),   # 🔥 加這行
             "keywords": keyword_scores,
             "trend": trend
         }
-
+            print("PATENTS:", len(patents))
     except Exception as e:
         return {"error": str(e)}
 
