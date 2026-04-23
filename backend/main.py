@@ -48,7 +48,7 @@ def generate(data: dict):
             "keywords": keyword_scores,
             "trend": trend
         }
-            print("PATENTS:", len(patents))
+
     except Exception as e:
         return {"error": str(e)}
 
