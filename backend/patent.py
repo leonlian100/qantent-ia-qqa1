@@ -1,4 +1,6 @@
 import requests
+import time
+
 
 def translate_query(q):
     mapping = {
@@ -9,55 +11,67 @@ def translate_query(q):
     return mapping.get(q, q)
 
 
-def get_patents(query):
-    query = translate_query(query)
+def fetch_batch(query, size=20):
+    url = "https://api.lens.org/patent/search"
+
+    payload = {
+        "query": {
+            "query_string": {
+                "query": query
+            }
+        },
+        "size": size
+    }
 
     try:
-        url = "https://api.lens.org/patent/search"
-
-        payload = {
-            "query": {
-                "query_string": {
-                    "query": query
-                }
-            },
-            "size": 10   # 🔥 小量，避免 crash
-        }
-
-        headers = {
-            "Content-Type": "application/json"
-        }
-
         res = requests.post(
             url,
             json=payload,
-            headers=headers,
-            timeout=5   # 🔥 防卡死
+            timeout=5
         )
-
         data = res.json()
 
-        patents = []
+        results = []
 
         for item in data.get("data", []):
             abstract = item.get("abstract", "")
             title = item.get("title", "")
 
             if abstract:
-                patents.append({
+                results.append({
                     "title": title,
                     "abstract": abstract
                 })
 
-        # 👉 如果 API 沒資料，用 fallback
-        if not patents:
-            return fallback(query)
-
-        return patents
+        return results
 
     except Exception as e:
-        print("API error:", e)
+        print("Batch error:", e)
+        return []
+
+
+def get_patents(query):
+    query = translate_query(query)
+
+    all_patents = []
+
+    # 🔥 分批抓（20 x 10 = 200）
+    for i in range(10):
+        batch = fetch_batch(query, size=20)
+
+        all_patents.extend(batch)
+
+        # 👉 已經夠就停（避免浪費）
+        if len(all_patents) >= 200:
+            break
+
+        time.sleep(0.8)  # 🔥 防止 API 限制
+
+    # 👉 如果 API 失敗，用 fallback
+    if not all_patents:
         return fallback(query)
+
+    return all_patents[:200]
 
 
 def fallback(query):
